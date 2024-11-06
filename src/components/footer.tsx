@@ -11,7 +11,7 @@ const Footer: React.FC<FooterProps> = () => {
   const companyLinks = ["Partnerships", "Terms of use", "Privacy", "Sitemap"];
 
   return (
-    <footer className="flex flex-col rounded-none">
+    <footer className="flex grad-tab9  flex-col rounded-none mt-[90px]">
       <div className="flex flex-wrap gap-5 justify-between items-start px-16 py-16 w-full rounded-3xl max-md:px-5 max-md:max-w-full">
         {/* Footer logo */}
         <div className="flex flex-col">
@@ -28,10 +28,10 @@ const Footer: React.FC<FooterProps> = () => {
         </div>
         <FooterColumn title="Product" links={productLinks} />
         <FooterColumn title="Resources" links={resourceLinks} />
-        <FooterColumn title="Company" links={companyLinks} />
+        <FooterColumn title="Company"  links={companyLinks} />
         {/* News letter section */}
-        <div className="flex flex-col mt-2.5">
-          <h2 className="self-start text-2xl font-extrabold tracking-tight leading-loose uppercase">
+        <div className="flex flex-col ">
+          <h2 className="grad-text self-start text-2xl font-extrabold tracking-tight leading-loose uppercase">
             newsletter
           </h2>
           <form className="flex mt-10" onSubmit={(e) => e.preventDefault()}>
