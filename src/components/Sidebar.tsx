@@ -5,12 +5,12 @@ import { Users, User, ClipboardList, DollarSign, LogOut, BookOpen } from 'lucide
 import { useLogin } from '../auth/LoginContext';
 import { useSidebar } from '../auth/SidebarContext ';
 
-// Define a type for the user object
+
 interface User {
   id: number;
   name: string;
   email: string;
-  // Add other fields as per your user data structure
+  
 }
 
 const Sidebar: React.FC = () => {
