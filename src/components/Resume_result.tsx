@@ -3,6 +3,7 @@ import { Brain, AlertCircle } from "lucide-react";
 import { JobDescriptionInput } from "./JobDescriptionInput";
 import { ResumeList } from "./ResumeList";
 import { ResumeDropzone } from "./ResumeDropzone";
+import Topbar from "../auth/Topbar";
 
 interface Resume {
   id: string;
@@ -70,6 +71,8 @@ function Resume_result() {
   };
 
   return (
+    <>
+    <Topbar/>
     <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white">
       <div className="max-w-7xl mx-auto py-8 px-4 sm:px-6 lg:px-8">
         {/* Header */}
@@ -138,6 +141,7 @@ function Resume_result() {
         </div>
       </div>
     </div>
+    </>
   );
 }
 

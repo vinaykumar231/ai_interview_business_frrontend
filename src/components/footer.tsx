@@ -11,8 +11,8 @@ const Footer: React.FC<FooterProps> = () => {
   const companyLinks = ["Partnerships", "Terms of use", "Privacy", "Sitemap"];
 
   return (
-    <footer className="flex grad-tab9  flex-col rounded-none mt-[90px]">
-      <div className="flex flex-wrap gap-5 justify-between items-start px-16 py-16 w-full rounded-3xl max-md:px-5 max-md:max-w-full">
+    <footer className="flex grad-tab9  flex-col rounded-none mt-[90px] ">
+      <div className="flex flex-wrap gap-5 justify-between items-start px-16 py-16 w-full rounded-3xl max-md:px-5 max-md:max-w-full bg-black">
         {/* Footer logo */}
         <div className="flex flex-col">
           <img

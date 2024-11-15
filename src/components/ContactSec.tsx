@@ -2,11 +2,11 @@ import React, { useState } from 'react';
 
 type Service = 'Design Und Entwicklung' | 'Other Service';
 
-const ContactForm: React.FC = () => {
+const  ContactForm: React.FC = () => {
   const [service, setService] = useState<Service>('Design Und Entwicklung');
 
   return (
-    <div className="bg-gray-900 text-white p-8 rounded-lg shadow-lg max-w-3xl mx-auto">
+    <div className="bg-gray-900 text-white p-8 rounded-lg shadow-lg max-w-3xl mx-auto mt-11">
       <h1 className="text-3xl font-bold mb-6">CONTACT US</h1>
       <form className="space-y-4">
         <input

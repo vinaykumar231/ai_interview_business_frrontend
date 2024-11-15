@@ -38,10 +38,10 @@ const AuthPage = () => {
     }));
   };
 
-  const handleSubmit = async (e: any) => {
+  const handleSubmit = async (e:any) => {
     e.preventDefault();
     const token = localStorage.getItem("token");
-    
+
     try {
       const response = await axios.post("/api/AI_Interviewers/login/", payload, {
         headers: {
@@ -49,28 +49,33 @@ const AuthPage = () => {
           Authorization: `Bearer ${token}`,
         },
       });
-  
-      // Check if response contains the expected token or success data
+
       if (response && response.data.token) {
         Swal.fire({
           title: "Login successful!",
           icon: "success",
         });
-  
+
         const user = response.data.user || response.data;
         const newToken = response.data.token || response.data.access_token || token;
-  
+        console.log(user);
+
         if (user) {
           localStorage.setItem("user", JSON.stringify(user));
           if (newToken) {
             localStorage.setItem("token", newToken);
           }
-  
+
           dispatch({ type: "LOGIN", payload: { user, token: newToken } });
-          navigate('/');
+
+          // Navigate based on user type
+          if (user.user_type === "HR") {
+            navigate("/adminpage");
+          } else {
+            navigate("/");
+          }
         }
       } else {
-        // If no token is present, treat it as a failed login
         Swal.fire({
           title: "Login failed!",
           text: "Invalid email or password.",
@@ -79,7 +84,6 @@ const AuthPage = () => {
       }
     } catch (error) {
       console.log("Login error:", error);
-        
       Swal.fire({
         title: "Login failed!",
         icon: "error",
