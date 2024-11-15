@@ -23,7 +23,7 @@ const Candidate_Interview: React.FC<AIInterviewerProps> = ({
   onAnswerComplete
 }) => {
   const [stream, setStream] = useState<MediaStream | null>(null);
-  const [timeLeft, setTimeLeft] = useState<number>(5);
+  const [timeLeft, setTimeLeft] = useState<number>(50);
   const [isRecording, setIsRecording] = useState<boolean>(false);
   const [question, setQuestion] = useState<Question>(initialQuestion);
   const [error, setError] = useState<string | null>(null);
@@ -72,7 +72,7 @@ const Candidate_Interview: React.FC<AIInterviewerProps> = ({
       speakQuestion(question.text);
     }
   }, [question]);
-  
+
 
   const fetchQuestionsAndStart = async (email: string) => {
     try {
@@ -98,7 +98,7 @@ const Candidate_Interview: React.FC<AIInterviewerProps> = ({
     }
   };
 
-  
+
 
   // const handleFileChange = (event:any) => {
   //   setResumeFile(event.target.files[0]); // Store the uploaded file in state
@@ -110,6 +110,7 @@ const Candidate_Interview: React.FC<AIInterviewerProps> = ({
       html: `
         <input type="email" id="email" class="swal2-input" placeholder="Enter your email">
         <input type="file" id="resume" class="swal2-file" accept=".pdf,.doc,.docx">
+        <p> Please Upload Your Resume</p>
       `,
       showCancelButton: false,
       confirmButtonText: 'Start Interview',
@@ -118,18 +119,18 @@ const Candidate_Interview: React.FC<AIInterviewerProps> = ({
       preConfirm: () => {
         const email = (document.getElementById('email') as HTMLInputElement).value;
         const resume = (document.getElementById('resume') as HTMLInputElement).files?.[0];
-        
+
         if (!email || !resume) {
           Swal.showValidationMessage('Both email and resume are required');
           return false;
         }
-        
+
         if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
           Swal.showValidationMessage('Please enter a valid email address');
           return false;
         }
         setResumeFile(resume);
-        
+
         return { email, resume };
       }
     }).then((result) => {
@@ -158,7 +159,7 @@ const Candidate_Interview: React.FC<AIInterviewerProps> = ({
                 totalQuestions: question.totalQuestions,
                 currentQuestion: nextQuestionIndex + 1
               });
-              setTimeLeft(5);
+              setTimeLeft(50);
             } else {
               handleInterviewComplete();
             }
@@ -173,6 +174,28 @@ const Candidate_Interview: React.FC<AIInterviewerProps> = ({
     };
   }, [isRecording, timeLeft, questions, currentQuestionIndex]);
 
+
+  // Handle next question
+  const handleNextQuestion = () => {
+    if (question.currentQuestion < question.totalQuestions) {
+      const nextQuestionIndex = question.currentQuestion + 1;
+      setQuestion({
+        ...question,
+        id: nextQuestionIndex,
+        text: questions[`Qustion${nextQuestionIndex}`],
+        currentQuestion: nextQuestionIndex,
+      });
+      setTimeLeft(50);
+    } else {
+      Swal.fire({
+        title: "End of Questions",
+        text: "You have completed all the questions!",
+        icon: "info",
+        confirmButtonText: "Finish",
+      }).then(() => handleInterviewComplete());
+    }
+  };
+
   const handleInterviewComplete = async () => {
     setInterviewComplete(true);
     stopCamera();
@@ -183,7 +206,7 @@ const Candidate_Interview: React.FC<AIInterviewerProps> = ({
     // Create form data for API request
     const formData = new FormData();
     formData.append('email', candidateEmail);
-    formData.append('resume', resumeFile!); 
+    formData.append('resume', resumeFile!);
     formData.append('video', finalBlob, 'interview.webm');
 
     try {
@@ -195,19 +218,19 @@ const Candidate_Interview: React.FC<AIInterviewerProps> = ({
       });
 
       if (response.data.status === 'success') {
-  Swal.fire({
-    title: 'Analysis Complete!',
-    text: 'Your interview has been analyzed successfully and sent to HR for further processing.',
-    icon: 'success',
-    showCancelButton: true,
-    confirmButtonText: 'OK',
-    cancelButtonText: 'Stay',
-  }).then((result) => {
-    if (result.isConfirmed) {
-      navigate("/");
-    }
-  });
-}
+        Swal.fire({
+          title: 'Analysis Complete!',
+          text: 'Your interview has been analyzed successfully and sent to HR for further processing.',
+          icon: 'success',
+          showCancelButton: true,
+          confirmButtonText: 'OK',
+          cancelButtonText: 'Stay',
+        }).then((result) => {
+          if (result.isConfirmed) {
+            navigate("/");
+          }
+        });
+      }
 
     } catch (error) {
       console.error('Analysis error:', error);
@@ -263,7 +286,7 @@ const Candidate_Interview: React.FC<AIInterviewerProps> = ({
 
       mediaRecorder.start(1000);
       setIsRecording(true);
-      setTimeLeft(5);
+      setTimeLeft(50);
       setError(null);
 
     } catch (err) {
@@ -296,7 +319,7 @@ const Candidate_Interview: React.FC<AIInterviewerProps> = ({
     return `${mins}:${secs.toString().padStart(2, '0')}`;
   };
 
-  
+
 
   if (loading) {
     return (
@@ -346,11 +369,11 @@ const Candidate_Interview: React.FC<AIInterviewerProps> = ({
                 <p className="text-gray-600">
                   Thank you for completing the interview. Your responses have been recorded.
                 </p>
-                <button 
+                <button
                   onClick={() => window.location.href = '/'}
                   className="w-full bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700 transition-colors"
                 >
-                 Go to Home page
+                  Go to Home page
                 </button>
               </>
             )}
@@ -359,14 +382,14 @@ const Candidate_Interview: React.FC<AIInterviewerProps> = ({
       </div>
     );
   }
-  
+
 
   return (
     <div className="w-full mx-auto p-[75px]">
       <div className="grid grid-cols-2 md:grid-cols-2 gap-[80px] max-h-[100%]">
         <div className="relative overflow-hidden rounded-lg border border-gray-200 bg-white shadow-sm ">
-          <img 
-            src="/AI-Video-Interviews.jpg" 
+          <img
+            src="/AI-Video-Interviews.jpg"
             alt="AI Interviewer"
             className="`w-full  object-cover h-[700px]"
           />
@@ -385,7 +408,7 @@ const Candidate_Interview: React.FC<AIInterviewerProps> = ({
             muted
             className={`w-full  object-cover h-[700px] ${!stream ? 'hidden' : ''}`}
           />
-          
+
           {!stream && (
             <div className="absolute inset-0 flex flex-col items-center justify-center">
               <Camera className="w-16 h-16 text-gray-400 mb-4" />
@@ -399,7 +422,7 @@ const Candidate_Interview: React.FC<AIInterviewerProps> = ({
               )}
             </div>
           )}
-          
+
           {isRecording && (
             <div className="absolute top-4 right-4">
               <div className="rounded-lg border border-red-500 bg-white/90 p-4 shadow-sm">
@@ -415,26 +438,34 @@ const Candidate_Interview: React.FC<AIInterviewerProps> = ({
       </div>
 
       <div className="bg-white mt-4 p-4 rounded-lg border border-gray-200 shadow-sm">
-      <div className="flex justify-between items-center mb-2">
-              <h2 className="text-lg font-semibold">
-                Question {question.currentQuestion} of {question.totalQuestions}
-              </h2>
-              <button
-                onClick={() => speakQuestion(question.text)}
-                disabled={isSpeaking}
-                className="flex items-center gap-2"
-              >
-                {isSpeaking ? (
-                  <>
-                    <span className="w-2 h-2 bg-blue-500 rounded-full animate-pulse" />
-                    Speaking...
-                  </>
-                ) : (
-                  'Repeat Question'
-                )}
-              </button>
-            </div>
-            <p className="text-gray-700">{question.text}</p>
+        <div className="flex justify-between items-center mb-2">
+          <h2 className="text-lg font-semibold">
+            Question {question.currentQuestion} of {question.totalQuestions}
+          </h2>
+          <div>
+            <button
+              onClick={() => speakQuestion(question.text)}
+              disabled={isSpeaking}
+              className="flex items-center gap-2"
+            >
+              {isSpeaking ? (
+                <>
+                  <span className="w-2 h-2 bg-blue-500 rounded-full animate-pulse" />
+                  Speaking...
+                </>
+              ) : (
+                'Repeat Question'
+              )}
+            </button>
+            <button
+              className="px-6 py-2 text-white bg-gradient-to-r from-blue-500 to-purple-600 hover:from-purple-600 hover:to-blue-500 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm transition duration-300 shadow-md transform hover:scale-105"
+              onClick={handleNextQuestion}
+            >
+              Next
+            </button>
+          </div>
+        </div>
+        <p className="text-gray-700">{question.text}</p>
       </div>
     </div>
   );

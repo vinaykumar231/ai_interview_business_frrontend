@@ -192,7 +192,7 @@ const ResumeUpload: React.FC = () => {
 
             setResults(response.data);
             setUploading(false);
-            setUploadSuccess(true);
+            
         } catch (error) {
             setError('An error occurred while uploading the files.');
             setUploading(false);
