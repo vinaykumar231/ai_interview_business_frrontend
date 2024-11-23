@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from '../helper/axios'; // Ensure the correct path
 import { useLogin } from '../auth/LoginContext'; // Assuming you have a login context
+import { UserCircle } from 'lucide-react';
 
 // Define the User interface based on API response structure
 interface UserProfile {
@@ -44,33 +45,34 @@ const Profile: React.FC = () => {
 
     return (
         <div className="flex justify-center  min-h-screen  from-indigo-50 via-white to-cyan-50 h-44 bg-white">
-            <div className="bg-white rounded-lg shadow-2xl  p-8 h-fit mt-16 w-[50%]">
-                <div className="flex justify-center mb-6">
+            <div className="bg-white rounded-lg shadow-2xl  p-8 h-fit mt-16 w-[30%]">
+                <div className="flex justify-center">
                     {/* Profile Avatar Placeholder */}
-                    <div className="rounded-full w-32 h-32 bg-gray-200 flex justify-center items-center text-4xl font-bold text-gray-700">
-                        {profile?.username.charAt(0).toUpperCase()}
+                    <div className="">
+                        {/* {profile?.username.charAt(0).toUpperCase()} */}
+                        <UserCircle className='rounded-full w-[70%] h-32  flex justify-center items-center text-4xl font-bold text-gray-700'></UserCircle>
                     </div>
                 </div>
-                <h1 className="text-3xl font-semibold text-center text-gray-900 mb-4">{profile?.username}</h1>
-                <p className="text-center text-lg text-gray-600 mb-6">{profile?.user_type}</p>
+                <h1 className="text-3xl font-semibold text-center text-gray-900 mb-4  w-[90%]">{profile?.username}</h1>
+                <p className="text-center text-lg text-gray-600 mb-6  w-[90%]">{profile?.user_type}</p>
                 
                 <div className="space-y-4">
                     {/* Profile Info */}
                     <div className="flex justify-between items-center">
-                        <span className="text-sm font-medium text-gray-700">Email:</span>
-                        <span className="text-sm text-gray-500">{profile?.email}</span>
+                        <span className="text-[20px] font-medium text-gray-700 ">Email:</span>
+                        <span className="text-[20px] text-gray-500 w-[70%]">{profile?.email}</span>
                     </div>
                     <div className="flex justify-between items-center">
-                        <span className="text-sm font-medium text-gray-700">Phone:</span>
-                        <span className="text-sm text-gray-500">{profile?.phone_no}</span>
+                        <span className="text-[20px] font-medium text-gray-700">Phone:</span>
+                        <span className="text-[20px] text-gray-500 w-[70%]">{profile?.phone_no}</span>
                     </div>
                     <div className="flex justify-between items-center">
-                        <span className="text-sm font-medium text-gray-700">Company:</span>
-                        <span className="text-sm text-gray-500">{profile?.company_name}</span>
+                        <span className="text-[20px] font-medium text-gray-700">Company:</span>
+                        <span className="text-[20px] text-gray-500 w-[70%]">{profile?.company_name}</span>
                     </div>
                     <div className="flex justify-between items-center">
-                        <span className="text-sm font-medium text-gray-700">Industry:</span>
-                        <span className="text-sm text-gray-500">{profile?.industry}</span>
+                        <span className="text-[20px] font-medium text-gray-700">Industry:</span>
+                        <span className="text-[20px] text-gray-500 w-[70%]">{profile?.industry}</span>
                     </div>
                 </div>
             </div>

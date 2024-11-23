@@ -38,7 +38,7 @@ const AuthPage = () => {
     }));
   };
 
-  const handleSubmit = async (e:any) => {
+  const handleSubmit = async (e: any) => {
     e.preventDefault();
     const token = localStorage.getItem("token");
 
@@ -70,7 +70,7 @@ const AuthPage = () => {
 
           // Navigate based on user type
           if (user.user_type === "HR") {
-            navigate("/adminpage");
+            navigate("/profile");
           } else {
             navigate("/");
           }
@@ -90,13 +90,13 @@ const AuthPage = () => {
       });
     }
   };
-  
+
 
   const handleSignup = async (e: any) => {
     e.preventDefault();
     try {
       await axios.post("/api/insert/ai_Interviewer_register/", register);
-  
+
       Swal.fire({
         title: "Signup successful!",
         icon: "success",
@@ -104,11 +104,11 @@ const AuthPage = () => {
       setIsLogin(true); // Switch to login after successful signup
     } catch (error: any) {
       // Extract and show a more specific error message if available
-      const errorMessage = 
+      const errorMessage =
         error.response?.data?.detail ||
         error.response?.data?.message ||
         "Signup failed! Please try again.";
-  
+
       Swal.fire({
         title: "Signup failed!",
         text: errorMessage,
@@ -116,27 +116,22 @@ const AuthPage = () => {
       });
     }
   };
-  
+
   return (
     <div className="flex items-center justify-center  min-h-screen bg-gradient-to-br from-indigo-50 via-white to-cyan-50">
       <div className="bg-white shadow-2xl rounded-2xl flex overflow-hidden w-[80%] max-w-5xl transform hover:scale-[1.02] transition-transform duration-300 ">
         {/* Image Section */}
         <div
-          className={`w-1/2 ${
-            isLogin ? "order-1" : "order-2"
-          } bg-gradient-to-br from-indigo-600 to-blue-500 p-12 flex flex-col items-center justify-center relative overflow-hidden`}
+          className={`w-1/2 ${isLogin ? "order-1" : "order-2"
+            } bg-gradient-to-br from-indigo-600 to-blue-500 p-12 flex flex-col items-center justify-center relative overflow-hidden`}
+          style={{
+            backgroundImage: isLogin ? "url('login.png')" : "login.png",
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+          }}
         >
-          <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1579548122080-c35fd6820ecb?q=80&w=2070')] bg-cover bg-center opacity-20"></div>
-          <div className="relative z-10 text-center">
-            <h1 className="text-4xl font-bold text-white mb-6">
-              {isLogin ? "Welcome Back!" : "Join Us!"}
-            </h1>
-            <p className="text-indigo-100 text-lg max-w-sm">
-              {isLogin
-                ? "Sign in to continue to your account."
-                : "Create an account to start your journey with us."}
-            </p>
-          </div>
+          <div className=""></div>
+          
         </div>
 
         {/* Form Section */}
@@ -309,7 +304,7 @@ const AuthPage = () => {
 
               <button
                 type="submit"
-                className="w-full bg-gradient-to-r from-indigo-600 to-blue-500 text-white rounded-lg py-3 px-4 font-medium hover:from-indigo-700 hover:to-blue-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                className="w-full bg-indigo-950 text-white rounded-lg py-3 px-4 font-medium hover:from-indigo-700 hover:to-blue-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
               >
                 {isLogin ? "Sign In" : "Sign Up"}
               </button>

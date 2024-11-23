@@ -266,7 +266,7 @@ const ResumeUpload: React.FC = () => {
                                 className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded disabled:opacity-50 text-center"
                                 disabled={uploading}
                             >
-                                {uploading ? 'Uploading...' : 'Upload'}
+                                {uploading ? 'Uploading...' : 'SUBMIT'}
                             </button>
                         </div>
 
