@@ -27,7 +27,7 @@ const ResumeReports: React.FC = () => {
                 setResumeReports(response.data);
                 setLoading(false);
             } catch (err) {
-                setError('Failed to fetch resume reports.');
+                
                 setLoading(false);
             }
         };
@@ -36,7 +36,7 @@ const ResumeReports: React.FC = () => {
     }, [token]);
 
     if (loading) return <div>Loading...</div>;
-    if (error) return <div>{error}</div>;
+   
 
     return (
         <>
@@ -79,7 +79,7 @@ const ResumeReports: React.FC = () => {
          </div>
         ) :(
             <div className=' text-white text-center mt-14'> 
-                <p> No result available</p>
+                <p> No data available</p>
                 </div>
         )}
        

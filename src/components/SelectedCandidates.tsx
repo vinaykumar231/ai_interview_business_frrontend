@@ -29,7 +29,7 @@ interface CandidateRowProps {
     hr_email: string;
     company_name: string;
     Job_Title: string;
-    onSendEmail: (email: string) => void; // Pass a function to handle the email sending
+    onSendEmail: (email: string) => void; 
 }
 
 // CandidateRow Component
@@ -43,7 +43,7 @@ const CandidateRow: React.FC<CandidateRowProps> = ({
     hr_email,
     company_name,
     Job_Title,
-    onSendEmail, // Receive the email handler
+    onSendEmail, 
 }) => {
     const [sending, setSending] = useState<boolean>(false);
     const { user }: any = useLogin();
@@ -64,7 +64,7 @@ const CandidateRow: React.FC<CandidateRowProps> = ({
             <div className="w-1/6">{candidate_phone}</div>
             <div className="w-1/6">{candidate_overall_score}</div>
             <button
-                onClick={handleSendEmail} // Trigger the email sending process
+                onClick={handleSendEmail} 
                 className="w-1/6 px-3 py-2 bg-blue-500 text-white rounded-md"
                 disabled={sending} 
             >
@@ -74,37 +74,33 @@ const CandidateRow: React.FC<CandidateRowProps> = ({
     );
 };
 
-// SelectedCandidates Component
 const SelectedCandidates: React.FC = () => {
     const [candidates, setCandidates] = useState<Candidate[]>([]);
-    const [statusMessage, setStatusMessage] = useState<string>(''); // To display status message after email
+    const [statusMessage, setStatusMessage] = useState<string>(''); 
     const token = localStorage.getItem('token');
 
     useEffect(() => {
-        // Fetch data from the backend API
         axios
             .get('/api/selected-resumes/',{
                 headers: {
                     'Authorization': `Bearer ${token}`,
                     'Content-Type': 'multipart/form-data',
                   },
-            }) // Replace with your backend API URL
+            }) 
             .then((response) => {
                 setCandidates(response.data);
             })
             .catch((error) => {
                 console.error('Error fetching selected candidates:', error);
             });
-    }, []); // Empty dependency array ensures this effect runs only once when the component mounts.
+    }, []); 
 
     const handleSendEmail = async (email: string) => {
         try {
-            // Make the POST request to your backend API for sending the selection email
             const response = await axios.post('/api/send-selection-email/', null, {
-                params: { send_to: email }, // Use params to send email as query param
+                params: { send_to: email },
             });
 
-            // Check the response status and message
             const status = response.data.results[email]?.status;
             if (status === "Emails sent") {
                 setStatusMessage('Email sent successfully!');
@@ -134,13 +130,17 @@ const SelectedCandidates: React.FC = () => {
                     <div className="w-1/6">Score</div>
                     <div className="w-1/6">Action</div>
                 </header>
-                {candidates.map((candidate, index) => (
-                    <CandidateRow
-                        key={index}
-                        {...candidate}
-                        onSendEmail={handleSendEmail} // Pass the email handler
-                    />
-                ))}
+                {candidates.length > 0 ? (
+                    candidates.map((candidate, index) => (
+                        <CandidateRow
+                            key={index}
+                            {...candidate}
+                            onSendEmail={handleSendEmail} 
+                        />
+                    ))
+                ) : (
+                    <div className="text-center text-gray-500 py-4">No data available</div>
+                )}
             </section>
             {/* Display the status message */}
             {statusMessage && <div className="mt-4 text-center text-green-500">{statusMessage}</div>}
