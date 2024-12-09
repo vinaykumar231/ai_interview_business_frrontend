@@ -41,6 +41,7 @@ const Candidate_Interview: React.FC<AIInterviewerProps> = ({
   const [resumeFile, setResumeFile] = useState<File | null>(null);
   const [isSpeaking, setIsSpeaking] = useState<boolean>(false);
   const navigate = useNavigate();
+  const [hasStarted, setHasStarted] = useState(false);
 
   useEffect(() => {
     if (videoRef.current && stream) {
@@ -210,27 +211,27 @@ const Candidate_Interview: React.FC<AIInterviewerProps> = ({
     formData.append('video', finalBlob, 'interview.webm');
 
     try {
-      setIsAnalyzing(true);
+      // setIsAnalyzing(true);
       const response = await axios.post('/api/analyze', formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
       });
 
-      if (response.data.status === 'success') {
-        Swal.fire({
-          title: 'Analysis Complete!',
-          text: 'Your interview has been analyzed successfully and sent to HR for further processing.',
-          icon: 'success',
-          showCancelButton: true,
-          confirmButtonText: 'OK',
-          cancelButtonText: 'Stay',
-        }).then((result) => {
-          if (result.isConfirmed) {
-            navigate("/");
-          }
-        });
-      }
+      // if (response.data.status === 'success') {
+      //   Swal.fire({
+      //     title: 'Analysis Complete!',
+      //     text: 'Your interview has been analyzed successfully and sent to HR for further processing.',
+      //     icon: 'success',
+      //     showCancelButton: true,
+      //     confirmButtonText: 'OK',
+      //     cancelButtonText: 'Stay',
+      //   }).then((result) => {
+      //     if (result.isConfirmed) {
+      //       navigate("/");
+      //     }
+      //   });
+      // }
 
     } catch (error) {
       console.error('Analysis error:', error);
@@ -240,7 +241,7 @@ const Candidate_Interview: React.FC<AIInterviewerProps> = ({
         icon: 'error',
       });
     } finally {
-      setIsAnalyzing(false);
+      // setIsAnalyzing(false);
     }
   };
 
@@ -285,7 +286,7 @@ const Candidate_Interview: React.FC<AIInterviewerProps> = ({
       };
 
       mediaRecorder.start(1000);
-      setIsRecording(true);
+      // setIsRecording(true);
       setTimeLeft(50);
       setError(null);
 
@@ -367,7 +368,7 @@ const Candidate_Interview: React.FC<AIInterviewerProps> = ({
             ) : (
               <>
                 <p className="text-gray-600">
-                  Thank you for completing the interview. Your responses have been recorded.
+                  Thank you for completing the interview. Your responses have been recorded and sent to HR for further Interview processing.
                 </p>
                 <button
                   onClick={() => window.location.href = '/'}
@@ -385,28 +386,29 @@ const Candidate_Interview: React.FC<AIInterviewerProps> = ({
 
 
   return (
-    <div className="w-full mx-auto p-[75px]">
-      <div className="grid grid-cols-2 md:grid-cols-2 gap-[80px] max-h-[100%]">
-        <div className="relative overflow-hidden rounded-lg border border-gray-200 bg-white shadow-sm ">
-          <img
-            src="/AI-Video-Interviews.jpg"
-            alt="AI Interviewer"
-            className="`w-full  object-cover h-[700px]"
-          />
+    <div className="w-full mx-auto p-[40px]">
+      <div className=" max-h-[100%]">
+        {/* <div className="relative overflow-hidden rounded-lg border border-gray-200 bg-white shadow-sm ">
+          
           <div className="absolute bottom-4 right-4">
             <div className="bg-green-500 px-3 py-1 rounded-full text-white text-sm">
               AI Interviewer
             </div>
           </div>
-        </div>
+        </div> */}
 
-        <div className="relative overflow-hidden rounded-lg border border-gray-200 bg-gray-50  shadow-sm h-[700px] ">
+        <div className="relative overflow-hidden rounded-lg border border-gray-200 bg-gray-50  shadow-sm h-[750px] ">
+          <img
+            src="/AI-Video-Interviews.jpg"
+            alt="AI Interviewer"
+            className="`w-full  object-cover absolute h-[140px] bg-black"
+          />
           <video
             ref={videoRef}
             autoPlay
             playsInline
             muted
-            className={`w-full  object-cover h-[700px] ${!stream ? 'hidden' : ''}`}
+            className={`w-full  object-cover h-[750px] ${!stream ? 'hidden' : ''}`}
           />
 
           {!stream && (
@@ -438,34 +440,70 @@ const Candidate_Interview: React.FC<AIInterviewerProps> = ({
       </div>
 
       <div className="bg-white mt-4 p-4 rounded-lg border border-gray-200 shadow-sm">
-        <div className="flex justify-between items-center mb-2">
-          <h2 className="text-lg font-semibold">
-            Question {question.currentQuestion} of {question.totalQuestions}
-          </h2>
-          <div>
-            <button
-              onClick={() => speakQuestion(question.text)}
-              disabled={isSpeaking}
-              className="flex items-center gap-2"
-            >
-              {isSpeaking ? (
-                <>
-                  <span className="w-2 h-2 bg-blue-500 rounded-full animate-pulse" />
-                  Speaking...
-                </>
-              ) : (
-                'Repeat Question'
-              )}
-            </button>
+        {/* Start Interview Section */}
+        {!hasStarted ? (
+          <div className='flex my-0 mx-auto flex-col items-center gap-4'>
             <button
               className="px-6 py-2 text-white bg-gradient-to-r from-blue-500 to-purple-600 hover:from-purple-600 hover:to-blue-500 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm transition duration-300 shadow-md transform hover:scale-105"
-              onClick={handleNextQuestion}
+              onClick={() => {
+                Swal.fire({
+                  title: 'Are you ready to start the interview?',
+                  text: 'Please ensure that your camera and microphone are working properly.',
+                  icon: 'question',
+                  showCancelButton: true,
+                  confirmButtonText: 'Yes, Start Interview',
+                  cancelButtonText: 'Cancel',
+                  reverseButtons: true,
+                }).then((result) => {
+                  if (result.isConfirmed) {
+                    setHasStarted(true);
+                    setIsRecording(true); 
+                  }
+                });
+              }} // Start the interview
             >
-              Next
+              Start Interview when you are ready
             </button>
+            <p>
+              <b> Note:</b> Please check Camera and Microphone working properly before starting the interview
+            </p>
           </div>
-        </div>
-        <p className="text-gray-700">{question.text}</p>
+        ) : (
+          // Question Section
+          <div>
+            <div className="flex justify-between items-center mb-2">
+              <h2 className="text-lg font-semibold">
+                Question {question.currentQuestion} of {question.totalQuestions}
+              </h2>
+              <div>
+                {/* Repeat Question Button */}
+                <button
+                  onClick={() => speakQuestion(question.text)}
+                  disabled={isSpeaking}
+                  className="flex items-center gap-2"
+                >
+                  {isSpeaking ? (
+                    <>
+                      <span className="w-2 h-2 bg-blue-500 rounded-full animate-pulse" />
+                      Speaking...
+                    </>
+                  ) : (
+                    'Repeat Question'
+                  )}
+                </button>
+                <button
+                  className="px-6 py-2 text-white bg-gradient-to-r from-blue-500 to-purple-600 hover:from-purple-600 hover:to-blue-500 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm transition duration-300 shadow-md transform hover:scale-105"
+                  onClick={handleNextQuestion}
+                >
+                  Next
+                </button>
+              </div>
+            </div>
+            {/* Question Text */}
+            <p className="text-gray-700">{question.text}</p>
+
+          </div>
+        )}
       </div>
     </div>
   );
