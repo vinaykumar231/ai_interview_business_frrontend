@@ -27,17 +27,33 @@ const ResumeReports: React.FC = () => {
                 });
                 setResumeReports(response.data);
                 setLoading(false);
+                console.log(response.data)
             } catch (err) {
-
                 setLoading(false);
+                setError('Error loading reports');
             }
         };
 
         fetchResumeReports();
     }, [token]);
 
-    if (loading) return <div>Loading...</div>;
+    const formatDate = (dateString: string) => {
+        const date = new Date(dateString);
+        if (isNaN(date.getTime())) {
+            return 'Invalid Date';
+        }
+        return date.toLocaleString('en-GB', {
+            day: '2-digit',
+            month: '2-digit',
+            year: '2-digit',
+            hour: '2-digit',
+            minute: '2-digit',
+            second: '2-digit',
+            hour12: true,
+        });
+    };
 
+    if (loading) return <div>Loading...</div>;
 
     return (
         <>
@@ -52,15 +68,7 @@ const ResumeReports: React.FC = () => {
                                     <h2 className="text-xl font-semibold">{report.candidate_name || 'Unknown Candidate'}</h2>
                                 </div>
                                 <div className="text-sm text-gray-400 mb-4">
-                                    <p>Created On: {new Date(report.created_on).toLocaleString('en-GB', {
-                                        day: '2-digit',
-                                        month: '2-digit',
-                                        year: '2-digit',
-                                        hour: '2-digit',
-                                        minute: '2-digit',
-                                        second: '2-digit',
-                                        hour12: true
-                                    })}</p> {/* Display formatted date and time in dd/mm/yy hh:mm:ss AM/PM */}
+                                    <p>Created On: {formatDate(report?.created_on)}</p>
                                 </div>
 
                                 <div className="flex flex-col space-y-2">
@@ -91,11 +99,10 @@ const ResumeReports: React.FC = () => {
                     </div>
                 </div>
             ) : (
-                <div className=' text-white text-center mt-14'>
-                    <p> No data available</p>
+                <div className="text-white text-center mt-14">
+                    <p>No data available</p>
                 </div>
             )}
-
         </>
     );
 };

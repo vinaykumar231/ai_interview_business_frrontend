@@ -41,6 +41,7 @@ const LoginProvider = ({ children }:any) => {
                 dispatch({ type: 'LOGOUT' });
                 // Optionally, clear tokens from local storage
                 localStorage.removeItem('user');
+                localStorage.removeItem('token');
                 // Redirect the user
                 window.location.href = '/';
             }
