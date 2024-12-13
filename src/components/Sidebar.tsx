@@ -75,21 +75,27 @@ const Sidebar: React.FC = () => {
         return (
           <>
             <li className="flex items-center space-x-2 ml-4">
-              <User className="w-6 h-6" />
+              <ClipboardList className="w-6 h-6" />
               <Link to="/admin_business_msg" className="block py-2.5 px-4 text-sm hover:bg-blue-700">
-              admin_business_msg
+              Business Message
               </Link>
             </li>
             <li className="flex items-center space-x-2 ml-4">
-              <DollarSign className="w-6 h-6" />
+              <Users className="w-6 h-6" />
               <Link to="/all_users" className="block py-2.5 px-4 text-sm hover:bg-blue-700">
-              all Users
+              All Users
               </Link>
             </li>
             <li className="flex items-center space-x-2 ml-4">
               <BookOpen className="w-6 h-6" />
-              <Link to="/BusinessMessgae" className="block py-2.5 px-4 text-sm hover:bg-blue-700">
-              Business Messgae
+              <Link to="/hr_activity" className="block py-2.5 px-4 text-sm hover:bg-blue-700">
+              HR Activity
+              </Link>
+            </li>
+            <li className="flex items-center space-x-2 ml-4">
+              <CheckSquare className="w-6 h-6" />
+              <Link to="/All_hr_candidate_report" className="block py-2.5 px-4 text-sm hover:bg-blue-700">
+              All HR Candidate 
               </Link>
             </li>
           </>

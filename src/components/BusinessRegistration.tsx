@@ -35,15 +35,13 @@ function BusinessRegistration() {
       if (response.status === 200 || response.status === 201) {
         setSuccessMessage('Message Sent successfully!');
         console.log('Response:', response.data);
-
-
+        
         Swal.fire({
           title: 'Message Sent successfully!',
           text: 'Your message has been sent successfully and is being processed. Kindly wait for further response.',
           icon: 'success',
-          showCancelButton: true,
           confirmButtonText: 'OK',
-          cancelButtonText: 'Stay',
+          
         }).then((result) => {
           if (result.isConfirmed) {
             navigate("/");

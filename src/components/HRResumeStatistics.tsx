@@ -51,6 +51,7 @@ const HRResumeStatistics: React.FC = () => {
     const [error, setError] = useState<string | null>(null);
     const [active, setActive] = useState<number | null>(null);
     const [activeTab, setActiveTab] = useState<"selected" | "rejected">("selected");
+    const token = localStorage.getItem('token');
 
     useEffect(() => {
         const fetchData = async () => {
@@ -66,11 +67,17 @@ const HRResumeStatistics: React.FC = () => {
                 // Fetch HR statistics
                 const statsResponse = await axios.get(`/api/Total_resumeUploaded_by_hr/`, {
                     params: { hr_id: parsedUser.user_id },
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                    },
                 });
 
                 // Fetch resume analysis report
                 const resumesResponse = await axios.get(`/api/get_resumes_analysis_report/`, {
                     params: { hr_id: parsedUser.user_id },
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                    },
                 });
 
                 setStats(statsResponse.data);

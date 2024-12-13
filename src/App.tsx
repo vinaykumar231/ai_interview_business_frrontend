@@ -20,7 +20,12 @@ import StudentSignup from "./components/StudentSignup";
 
 import { SidebarProvider } from "./auth/SidebarContext ";
 import ProtectedRoute from "./auth/ProtectedRoute";
-import Adminbusinessmsg from "./components/Adminbusinessmsg";
+import Adminbusinessmsg from "./admin_pages/Adminbusinessmsg";
+import AllUsers from "./admin_pages/AllUsers";
+import SignUpFormHR from "./admin_pages/SignUpFormHR";
+import HrActivity from "./admin_pages/HrActivity";
+import HRCandidateCounts from "./admin_pages/HRCandidateCounts";
+
 
 
 function App() {
@@ -45,8 +50,8 @@ function App() {
             <Route path="/login" element={<Login />} />
             <Route path="/Student_signup" element={<StudentSignup />} />
             <Route path="/busines_register" element={<BusinessRegistration />} />
-            <Route path="/admin_business_msg" element={<Adminbusinessmsg />} />
-
+            
+            
             {/* Protected Routes wrapped with ProtectedRoute */}
             <Route element={<ProtectedRoute />}>
               <Route path="/resume-result" element={<Resume_result />} />
@@ -56,6 +61,12 @@ function App() {
               <Route path="/adminpage" element={<Sidebar />} />
               <Route path="/selected_candidate" element={<SelectedCandidates />} />
               <Route path="/hr_Total_ResumeUploaded" element={<HRResumeStatistics />} />
+              <Route path="/admin_business_msg" element={<Adminbusinessmsg />} />
+              <Route path="/all_users" element={<AllUsers />} />
+              <Route path="/hr_register" element={<SignUpFormHR />} />
+              <Route path="/hr_activity" element={<HrActivity />} />
+              <Route path="/All_hr_candidate_report" element={<HRCandidateCounts />} />
+             
             </Route>
             
             {/* Candidate Interview route */}

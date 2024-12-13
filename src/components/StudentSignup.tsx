@@ -55,17 +55,31 @@ const AuthPage = () => {
         });
 
         // Extract user and token from response
+        const user_data= response.data;
         const { token: newToken, ...user } = response.data;
 
         // Save user and token to localStorage
-        localStorage.setItem("user", JSON.stringify(user));
+        localStorage.setItem("user", JSON.stringify(user_data));
         localStorage.setItem("token", newToken);
 
         // Dispatch login action
         dispatch({ type: "LOGIN", payload: { user, token: newToken } });
 
         // Redirect user based on their type
-        navigate(user.user_type === "HR" ? "/profile" : "/");
+        switch (user.user_type) {
+          case "HR":
+            navigate("/profile"); 
+            break;
+          case "admin":
+            navigate("/admin_business_msg");
+            break;
+          case "students":
+            navigate("/profile");
+            break;
+          default:
+            navigate("/");
+            break;
+        }
       } else {
         Swal.fire({
           title: "Login failed!",
