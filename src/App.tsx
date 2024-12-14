@@ -25,6 +25,7 @@ import AllUsers from "./admin_pages/AllUsers";
 import SignUpFormHR from "./admin_pages/SignUpFormHR";
 import HrActivity from "./admin_pages/HrActivity";
 import HRCandidateCounts from "./admin_pages/HRCandidateCounts";
+import ResumeBuilder from "./student_pages/ResumeBuilder";
 
 
 
@@ -32,7 +33,7 @@ function App() {
   const { user } = useLogin();
   const [showSidebar, setShowSidebar] = useState(true);
 
-  const noSidebarPages = ["/", "/login", "/candidate_interview", "/busines_register", "/Student_signup"];
+  const noSidebarPages = ["/", "/login", "/candidate_interview", "/busines_register", "/Student_signup","/resume_builder"];
   const location = useLocation();
 
   useEffect(() => {
@@ -66,7 +67,9 @@ function App() {
               <Route path="/hr_register" element={<SignUpFormHR />} />
               <Route path="/hr_activity" element={<HrActivity />} />
               <Route path="/All_hr_candidate_report" element={<HRCandidateCounts />} />
-             
+
+             {/* student routes */}
+             <Route path="/resume_builder" element={<ResumeBuilder />} />
             </Route>
             
             {/* Candidate Interview route */}

@@ -112,8 +112,8 @@ const Sidebar: React.FC = () => {
             </li>
             <li className="flex items-center space-x-2 ml-4">
               <DollarSign className="w-6 h-6" />
-              <Link to="/courses" className="block py-2.5 px-4 text-sm hover:bg-blue-700">
-                My Courses
+              <Link to="/resume_builder" className="block py-2.5 px-4 text-sm hover:bg-blue-700">
+              Resume builder
               </Link>
             </li>
             <li className="flex items-center space-x-2 ml-4">
