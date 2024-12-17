@@ -98,7 +98,7 @@ export default function RootApp() {
   return (
     <LoginProvider>
       <SidebarProvider>
-        <Router>
+      <Router basename="/ai_hr">
           <App />
         </Router>
       </SidebarProvider>

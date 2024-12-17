@@ -42,7 +42,7 @@ const AuthPage = () => {
         console.log(response.data)
 
         // Extract user and token from response
-        const user_data=response.data
+        const user_data = response.data
         const { token: newToken, ...user } = response.data;
 
         // Save user and token to localStorage
@@ -55,7 +55,7 @@ const AuthPage = () => {
 
         switch (user.user_type) {
           case "HR":
-            navigate("/profile"); 
+            navigate("/profile");
             break;
           case "admin":
             navigate("/admin_business_msg");
@@ -67,7 +67,7 @@ const AuthPage = () => {
             navigate("/");
             break;
         }
-        
+
       } else {
         Swal.fire({
           title: "Login failed!",
@@ -92,7 +92,7 @@ const AuthPage = () => {
         <div className="w-1/2">
           {/* Add Image here */}
           <img
-            src="login.png" // Replace with your image URL
+            src={`${process.env.PUBLIC_URL}/login.png`}
             alt="Welcome Back"
             className="w-full h-full object-cover rounded-lg"
           />

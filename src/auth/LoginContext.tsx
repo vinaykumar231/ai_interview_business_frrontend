@@ -43,7 +43,7 @@ const LoginProvider = ({ children }:any) => {
                 localStorage.removeItem('user');
                 localStorage.removeItem('token');
                 // Redirect the user
-                window.location.href = '/';
+                window.location.href = '/ai_hr';
             }
         });
     };

@@ -55,7 +55,7 @@ const AuthPage = () => {
         });
 
         // Extract user and token from response
-        const user_data= response.data;
+        const user_data = response.data;
         const { token: newToken, ...user } = response.data;
 
         // Save user and token to localStorage
@@ -68,7 +68,7 @@ const AuthPage = () => {
         // Redirect user based on their type
         switch (user.user_type) {
           case "HR":
-            navigate("/profile"); 
+            navigate("/profile");
             break;
           case "admin":
             navigate("/admin_business_msg");
@@ -140,7 +140,10 @@ const AuthPage = () => {
           className={`w-1/2 ${isLogin ? "order-1" : "order-2"
             } bg-gradient-to-br from-indigo-600 to-blue-500 p-12 flex flex-col items-center justify-center relative overflow-hidden`}
           style={{
-            backgroundImage: isLogin ? "url('login.png')" : "login.png",
+            backgroundImage: `url(${isLogin
+                ? `${process.env.PUBLIC_URL}/login.png`
+                : `${process.env.PUBLIC_URL}/login.png`
+              })`,
             backgroundSize: "cover",
             backgroundPosition: "center",
           }}

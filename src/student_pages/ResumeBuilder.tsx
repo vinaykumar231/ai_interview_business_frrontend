@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 
 const ResumeTemplate = () => {
   return (
@@ -7,14 +7,14 @@ const ResumeTemplate = () => {
       <div className="w-full flex justify-between items-center py-4 px-6 bg-white shadow-sm">
         <h1 className="text-lg font-bold text-gray-800 flex items-center">
           <span className="mr-2">
-            {/* Add your logo here */}
+            {/* Logo */}
             <img
-              src="logo_maiteri_ai_rec.jpg"
+              src={`${process.env.PUBLIC_URL}/logo_maiteri_ai_rec.jpg`}
               alt="Logo"
               className="h-11"
             />
           </span>
-          Resume Now.
+          Resume Builder.
         </h1>
         <div className="flex space-x-6">
           <a href="#" className="text-gray-600 hover:text-gray-800">
@@ -32,8 +32,9 @@ const ResumeTemplate = () => {
           Job-Winning Resume Templates
         </h2>
         <p className="text-gray-600 text-lg">
-          Get the job 2x as fast. Choose from dozens of recruiter-approved templates.
-          Click to add ready-to-use skills and phrases to your template.
+          Get the job 2x as fast. Choose from dozens of recruiter-approved
+          templates. Click to add ready-to-use skills and phrases to your
+          template.
         </p>
         <button className="bg-blue-600 text-white px-6 py-3 rounded-md font-medium mt-6 hover:bg-blue-700">
           Choose a template
@@ -44,13 +45,14 @@ const ResumeTemplate = () => {
       <div className="relative mt-10">
         {/* Resume Image */}
         <img
-          src="resume.jpg" // Replace with your uploaded resume screenshot
+          src={`${process.env.PUBLIC_URL}/resume.png`}
           alt="Resume Template"
           className="max-w-md rounded-lg shadow-lg"
         />
+
         {/* Person Image */}
         <img
-          src="resume_profile.jpg" // Replace with your image for the person
+          src={`${process.env.PUBLIC_URL}/dev pic.jpg`}
           alt="Person"
           className="absolute bottom-0 right-[-50px] h-32 w-32 object-cover rounded-full border-4 border-white shadow-md"
         />
