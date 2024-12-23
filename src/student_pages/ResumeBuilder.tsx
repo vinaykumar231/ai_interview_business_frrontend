@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 const ResumeTemplate = () => {
   return (
@@ -20,9 +21,9 @@ const ResumeTemplate = () => {
           <a href="#" className="text-gray-600 hover:text-gray-800">
             Contact Us
           </a>
-          <a href="#" className="text-gray-600 hover:text-gray-800">
+          {/* <a href="#" className="text-gray-600 hover:text-gray-800">
             Login
-          </a>
+          </a> */}
         </div>
       </div>
 
@@ -36,9 +37,9 @@ const ResumeTemplate = () => {
           templates. Click to add ready-to-use skills and phrases to your
           template.
         </p>
-        <button className="bg-blue-600 text-white px-6 py-3 rounded-md font-medium mt-6 hover:bg-blue-700">
-          Choose a template
-        </button>
+        <Link to ="/resume_maker" className="bg-blue-600 text-white px-6 py-3 rounded-md font-medium mt-6 hover:bg-blue-700">
+          Create Resume
+        </Link>
       </div>
 
       {/* Image Section */}

@@ -8,8 +8,11 @@ export default function Header() {
         <div className="flex justify-between h-16 items-center">
           <div className="flex items-center">
             <Link to="/" className="flex items-center">
-              <img src="logo_maiteri_ai_rec.jpg" alt="Logo" className="h-16 w-16 rounded-full" height="80px" /> 
-
+              <img
+                src={`${process.env.PUBLIC_URL}/logo_maiteri_ai_rec.jpg`}
+                alt="Logo"
+                className="h-16 w-16 rounded-full"
+              />
               <span className="ml-2 text-2xl font-bold text-blue-900">Maitri AI.Interviewer</span>
             </Link>
 
@@ -26,3 +29,6 @@ export default function Header() {
     </header>
   );
 }
+
+
+// Header
