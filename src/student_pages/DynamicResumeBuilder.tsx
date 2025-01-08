@@ -165,7 +165,7 @@ const DynamicResumeBuilder: React.FC = () => {
     <div className="min-h-screen bg-gray-50">
       {/* Header with Tabs */}
       <div className="bg-white shadow-sm">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className=" mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center py-4">
             <h1 className="text-2xl font-bold text-gray-900">Resume Builder</h1>
             <div className="flex space-x-4">
@@ -194,10 +194,10 @@ const DynamicResumeBuilder: React.FC = () => {
         </div>
       </div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <div className="grid md:grid-cols-2 gap-8">
+      <div className=" mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <div className="flex md:grid-cols-2 gap-8">
           {/* Form Section */}
-          <div className="space-y-6">
+          <div className="space-y-6 w-[50%]">
             {/* Personal Information */}
             <div className="bg-white p-6 rounded-lg shadow-sm">
               <h2 className="text-lg font-semibold mb-4 flex items-center">
@@ -696,7 +696,7 @@ const DynamicResumeBuilder: React.FC = () => {
           </div>
 
           {/* Preview Section */}
-          <div className="bg-white p-6 rounded-lg shadow-sm">
+          <div className="bg-white p-6 rounded-lg shadow-sm w-[50%]">
             <div className="flex justify-between items-center mb-6">
               <h2 className="text-xl font-bold">Resume Preview</h2>
               <button

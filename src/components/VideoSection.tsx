@@ -18,7 +18,7 @@ export default function VideoSection() {
       <div className="relative rounded-2xl overflow-hidden shadow-xl">
         <div className="aspect-w-16 aspect-h-9">
           <video width="560" height="315" controls>
-            <source src="3209211-uhd_3840_2160_25fps.mp4" type="video/mp4" />
+            <source src={`${process.env.PUBLIC_URL}/3209211-uhd_3840_2160_25fps.mp4`} type="video/mp4" />
             Your browser does not support the video tag.
           </video>
         </div>
@@ -31,7 +31,7 @@ export default function VideoSection() {
       <div className="relative rounded-2xl overflow-hidden shadow-xl">
         <div className="aspect-w-16 aspect-h-9">
           <video width="560" height="315" controls>
-            <source src="3196292-uhd_3840_2160_25fps.mp4" type="video/mp4" />
+            <source src={`${process.env.PUBLIC_URL}/3196292-uhd_3840_2160_25fps.mp4`} type="video/mp4" />
             Your browser does not support the video tag.
           </video>
         </div>

@@ -4,7 +4,7 @@ import { Building2, GraduationCap, CheckCircle } from 'lucide-react';
 import VideoSection from './VideoSection';
 import TestimonialSection from './TestimonialSection';
 import StatisticsSection from './StatisticsSection';
-import Footer from './Footer';
+import Footer from './footer';
 
 export default function LandingPage() {
   const features = [

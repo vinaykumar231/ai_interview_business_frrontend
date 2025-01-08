@@ -20,7 +20,7 @@ const ContactForm: React.FC<ContactFormProps> = () => {
             <InputField label="E-Mail" type="email" />
             <InputField label="Phone Number" type="tel" />
           </div>
-          <img src="Worldcard.png" />
+          <img src={`${process.env.PUBLIC_URL}/assets/images/Worldcard.png`} />
           {/* <ContactCard /> */}
         </div>
         {/* <ServiceDropdown /> */}

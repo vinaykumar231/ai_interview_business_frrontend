@@ -7,21 +7,21 @@ export default function TestimonialSection() {
       name: "Raj Trivedi",
       role: "Software Engineer",
       company: "Amazon",
-      image: "raj pic.jpeg",
+      image: `${process.env.PUBLIC_URL}/assets/images/raj pic.jpeg`,
       content: "The AI interview practice helped me land my dream job. The feedback was incredibly detailed and helpful."
     },
     {
       name: "Dev chandan",
       role: "Product Manager",
       company: "Amazon",
-      image: "dev pic.jpg",
+      image: `${process.env.PUBLIC_URL}/assets/images/dev pic.jpg`,
       content: "This platform revolutionized our hiring process. We've saved countless hours and found better candidates."
     },
     {
       name: "Arya Kumar",
       role: "Recent Graduate",
       company: "university of mumbai",
-      image: "arya pic.jpeg",
+      image: `${process.env.PUBLIC_URL}/assets/images/arya pic.jpeg`,
       content: "The resume builder and practice interviews gave me the confidence I needed for my job search."
     }
   ];

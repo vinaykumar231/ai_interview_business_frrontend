@@ -141,8 +141,8 @@ const AuthPage = () => {
             } bg-gradient-to-br from-indigo-600 to-blue-500 p-12 flex flex-col items-center justify-center relative overflow-hidden`}
           style={{
             backgroundImage: `url(${isLogin
-                ? `${process.env.PUBLIC_URL}/login.png`
-                : `${process.env.PUBLIC_URL}/login.png`
+                ? `${process.env.PUBLIC_URL}/assets/images/login.png`
+                : `${process.env.PUBLIC_URL}/assets/images/login.png`
               })`,
             backgroundSize: "cover",
             backgroundPosition: "center",

@@ -27,32 +27,40 @@ const AuthPage = () => {
     const token = localStorage.getItem("token");
 
     try {
-      const response = await axios.post("/api/AI_Interviewers/login/", payload, {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      const response = await axios.post(
+        "/api/AI_Interviewers/login/",
+        payload,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
 
       if (response?.data?.token) {
         Swal.fire({
           title: "Login successful!",
           icon: "success",
         });
-        console.log(response.data)
+        console.log(response.data);
 
         // Extract user and token from response
-        const user_data = response.data
+        const user_data = response.data;
         const { token: newToken, ...user } = response.data;
 
         // Save user and token to localStorage
         localStorage.setItem("user", JSON.stringify(user_data));
         localStorage.setItem("token", newToken);
-        console.log(user_data)
+        console.log(user_data);
 
         // Dispatch login action
-        dispatch({ type: "LOGIN", payload: { user, token: newToken } });
+        dispatch({
+          type: "LOGIN",
+          payload: { user: user_data, token: newToken },
+        });
 
+        console.log(user);
         switch (user.user_type) {
           case "HR":
             navigate("/profile");
@@ -67,7 +75,6 @@ const AuthPage = () => {
             navigate("/");
             break;
         }
-
       } else {
         Swal.fire({
           title: "Login failed!",
@@ -92,7 +99,7 @@ const AuthPage = () => {
         <div className="w-1/2">
           {/* Add Image here */}
           <img
-            src={`${process.env.PUBLIC_URL}/login.png`}
+            src={`${process.env.PUBLIC_URL}/assets/images/login.png`}
             alt="Welcome Back"
             className="w-full h-full object-cover rounded-lg"
           />

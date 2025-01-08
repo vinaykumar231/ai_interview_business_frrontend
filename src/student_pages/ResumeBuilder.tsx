@@ -10,7 +10,7 @@ const ResumeTemplate = () => {
           <span className="mr-2">
             {/* Logo */}
             <img
-              src={`${process.env.PUBLIC_URL}/logo_maiteri_ai_rec.jpg`}
+              src={`${process.env.PUBLIC_URL}/assets/images/logo_maiteri_ai_rec.jpg`}
               alt="Logo"
               className="h-11"
             />
@@ -32,12 +32,12 @@ const ResumeTemplate = () => {
         <h2 className="text-4xl font-extrabold text-gray-800 mb-6">
           Job-Winning Resume Templates
         </h2>
-        <p className="text-gray-600 text-lg">
+        <p className="text-gray-600 text-lg mb-9">
           Get the job 2x as fast. Choose from dozens of recruiter-approved
           templates. Click to add ready-to-use skills and phrases to your
           template.
         </p>
-        <Link to ="/resume_maker" className="bg-blue-600 text-white px-6 py-3 rounded-md font-medium mt-6 hover:bg-blue-700">
+        <Link to ="/resume_maker" className="bg-blue-600 text-white px-6 py-3 rounded-md font-medium hover:bg-blue-700">
           Create Resume
         </Link>
       </div>
@@ -46,14 +46,14 @@ const ResumeTemplate = () => {
       <div className="relative mt-10">
         {/* Resume Image */}
         <img
-          src={`${process.env.PUBLIC_URL}/resume.png`}
+          src={`${process.env.PUBLIC_URL}/assets/images/resume.png`}
           alt="Resume Template"
           className="max-w-md rounded-lg shadow-lg"
         />
 
         {/* Person Image */}
         <img
-          src={`${process.env.PUBLIC_URL}/dev pic.jpg`}
+          src={`${process.env.PUBLIC_URL}/assets/images/dev pic.jpg`}
           alt="Person"
           className="absolute bottom-0 right-[-50px] h-32 w-32 object-cover rounded-full border-4 border-white shadow-md"
         />
