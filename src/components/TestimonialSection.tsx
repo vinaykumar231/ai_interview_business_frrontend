@@ -13,7 +13,7 @@ export default function TestimonialSection() {
     {
       name: "Dev chandan",
       role: "Product Manager",
-      company: "Amazon",
+      company: "Infosys",
       image: `${process.env.PUBLIC_URL}/assets/images/dev pic.jpg`,
       content: "This platform revolutionized our hiring process. We've saved countless hours and found better candidates."
     },

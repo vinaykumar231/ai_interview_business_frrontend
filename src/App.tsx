@@ -33,6 +33,7 @@ import HRCandidateCounts from "./admin_pages/HRCandidateCounts";
 import ResumeBuilder from "./student_pages/ResumeBuilder";
 import DynamicResumeBuilder from "./student_pages/DynamicResumeBuilder";
 import JobPost from "./components/JobPost";
+import JobDetails from "./components/JobDetails";
 
 function App() {
   const { user } = useLogin();
@@ -46,12 +47,26 @@ function App() {
     "/Student_signup",
     "/resume_builder",
     "/resume_maker",
+    "/job_details"
   ];
   const location = useLocation();
 
   useEffect(() => {
-    setShowSidebar(!noSidebarPages.includes(location.pathname));
+    // Check if the current path matches any noSidebarPages
+    // For job_details, we check if the path starts with "/job_details"
+    const shouldHideSidebar = noSidebarPages.some(page => {
+      if (page === "/job_details") {
+        return location.pathname.startsWith("/job_details");
+      }
+      return location.pathname === page;
+    });
+
+    setShowSidebar(!shouldHideSidebar);
   }, [location.pathname]);
+
+  // useEffect(() => {
+  //   setShowSidebar(!noSidebarPages.includes(location.pathname));
+  // }, [location.pathname]);
 
   return (
     <div className="App">
@@ -67,6 +82,9 @@ function App() {
               path="/busines_register"
               element={<BusinessRegistration />}
             />
+            
+            {/* Job details */}
+            <Route path="/job_details/:id" element={<JobDetails />}/>
 
             {/* Protected Routes wrapped with ProtectedRoute */}
             <Route element={<ProtectedRoute />}>
@@ -116,6 +134,7 @@ function App() {
                 />
               }
             />
+
           </Routes>
         </div>
       </div>

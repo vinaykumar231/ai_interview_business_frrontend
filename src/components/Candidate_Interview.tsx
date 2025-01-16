@@ -388,7 +388,7 @@ const Candidate_Interview: React.FC<AIInterviewerProps> = ({
 
 
   return (
-    <div className="w-full mx-auto p-[40px]">
+    <div className="w-full mx-auto p-[40px] bg-black">
       <div className=" max-h-[100%]">
         {/* <div className="relative overflow-hidden rounded-lg border border-gray-200 bg-white shadow-sm ">
           

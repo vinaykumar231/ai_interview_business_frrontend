@@ -1,5 +1,16 @@
 import React, { useContext, useEffect, useState } from "react";
-import { Plus, Edit2, Search, Eye, Save, AlertCircle } from "lucide-react";
+import {
+  Plus,
+  Edit2,
+  Search,
+  Eye,
+  Save,
+  AlertCircle,
+  Linkedin,
+  DeleteIcon,
+  Share2,
+  ClipboardList,
+} from "lucide-react";
 import axios from "../helper/axios";
 import Swal from "sweetalert2";
 
@@ -78,10 +89,6 @@ const JobPost = () => {
     setIsCreating(true);
     setIsEditing(false);
   };
-
-  // const handleDeleteJob = (id: string) => {
-  //   setJobs(jobs.filter(job => job.id !== id));
-  // };
 
   const handleEditJob = (job: JobPosting) => {
     setCurrentJob(job);
@@ -187,7 +194,7 @@ const JobPost = () => {
   };
 
   const handleCopyLink = (job: JobPosting) => {
-    const jobLink = `${window.location.origin}/job/${job.id}`;
+    const jobLink = `${window.location.origin}/ai_hr/job_details/${job.id}`;
     navigator.clipboard
       .writeText(jobLink)
       .then(() => {
@@ -205,6 +212,80 @@ const JobPost = () => {
           text: "Failed to copy the link.",
         });
       });
+  };
+
+  const handleDeleteJob = async (id: string) => {
+    try {
+      const result = await Swal.fire({
+        title: "Are you sure?",
+        text: "You won't be able to revert this!",
+        icon: "warning",
+        customClass: {
+          icon: "swal-my-icon",
+        },
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes, delete it!",
+      });
+      if (result.isConfirmed) {
+        const response = await axios.delete(`api/job_postings/${id}`, {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        if (response.status === 200) {
+          await Swal.fire({
+            title: "Deleted!",
+            text: "Your announcement has been deleted.",
+            icon: "success",
+            customClass: {
+              icon: "swal-my-icon",
+            },
+          });
+          getJobData();
+          setJobs(jobs.filter((job) => job.id !== id));
+        } else {
+          throw new Error("Failed to delete Content");
+        }
+      }
+    } catch (error) {
+      Swal.fire({
+        title: "Error",
+        text: "Your content was not deleted.",
+        icon: "error",
+        customClass: {
+          icon: "swal-my-icon",
+        },
+        timer: 2000, // Timer in milliseconds (3000ms = 3 seconds)
+        timerProgressBar: true, // Shows a progress bar for the timer
+        showConfirmButton: false, // Optionally hide the confirm button
+      });
+    }
+  };
+
+  const handleShare = (job: JobPosting, platform: "whatsapp" | "linkedin") => {
+    const jobUrl = `${window.location.origin}/ai_hr/job_details/${job.id}`;
+    let shareLink = "";
+
+    if (platform === "whatsapp") {
+      // Include the job URL separately to ensure it is clickable
+      const message = `Job Alert!\n\n${job.company_name} is hiring!\n\nRole: ${job.job_title}\nLocation: ${job.location}\nExperience: ${job.experience_required}\n\nApply now here:\n${jobUrl}`;
+
+      // Encode the message for WhatsApp
+      shareLink = `https://api.whatsapp.com/send?text=${encodeURIComponent(
+        message
+      )}`;
+    } else if (platform === "linkedin") {
+      // Encode the job URL for LinkedIn
+      shareLink = `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(
+        jobUrl
+      )}`;
+    }
+
+    // Open the share link in a new tab
+    window.open(shareLink, "_blank");
   };
 
   return (
@@ -364,7 +445,7 @@ const JobPost = () => {
                   required
                 >
                   <option value="">Select Job Type</option>
-                  {Object.entries(JobType).map(([key,type]) => (
+                  {Object.entries(JobType).map(([key, type]) => (
                     <option key={`job-type-${key}`} value={type}>
                       {type}
                     </option>
@@ -400,7 +481,7 @@ const JobPost = () => {
                   required
                 >
                   <option value="">Select Employment Type</option>
-                  {Object.entries(EmploymentType).map(([key,type]) => (
+                  {Object.entries(EmploymentType).map(([key, type]) => (
                     <option key={`employment-type-${key}`} value={type}>
                       {type.replace("_", " ")}
                     </option>
@@ -524,10 +605,7 @@ const JobPost = () => {
                     .includes(searchTerm.toLowerCase()))
             )
             .map((job) => (
-              <div
-                key={job.id}
-                className="bg-white rounded-lg shadow-md p-6"
-              >
+              <div key={job.id} className="bg-white rounded-lg shadow-md p-6">
                 <div className="flex justify-between items-start mb-4">
                   <div>
                     <h2 className="text-xl font-semibold text-gray-900">
@@ -536,25 +614,51 @@ const JobPost = () => {
                     <p className="text-gray-600">{job.department}</p>
                   </div>
                   <div className="flex flex-col gap-2">
-                    <button
-                      onClick={() => handleEditJob(job)}
-                      className="p-2 text-blue-600 hover:bg-blue-50 rounded-lg"
-                    >
-                      <Edit2 size={20} />
-                    </button>
-                    <button
-                      onClick={() => handleCopyLink(job)}
-                      className="p-2 text-green-600 hover:bg-green-50 rounded-lg flex justify-center items-center gap-3"
-                    >
-                      Copy Link
-                      {/* <ChevronDown size={20} /> */}
-                    </button>
+                    <div className="flex gap-2 justify-center items-center">
+                      <button
+                        onClick={() => handleEditJob(job)}
+                        className="p-2 text-blue-600 hover:bg-blue-50 rounded-lg"
+                        title="Edit"
+                      >
+                        <Edit2 size={20} />
+                      </button>
+
+                      <button
+                        onClick={() => handleDeleteJob(job.id)}
+                        className="p-2 text-red-600 hover:bg-red-50 rounded-lg"
+                        title="Delete"
+                      >
+                        <DeleteIcon size={25} />
+                      </button>
+                      <button
+                        onClick={() => handleCopyLink(job)}
+                        className="p-2 text-green-600 hover:bg-green-50 rounded-lg flex justify-center items-center gap-3"
+                        title="Copy"
+                      >
+                        {/* Copy Link */}
+                        <ClipboardList size={20} />
+                      </button>
+                    </div>
                     {/* <button
                       onClick={() => handleDeleteJob(job.id)}
                       className="p-2 text-red-600 hover:bg-red-50 rounded-lg"
                     >
                       <Trash2 size={20} />
                     </button> */}
+                    <div className="flex items-center gap-3">
+                      <button
+                        onClick={() => handleShare(job, "whatsapp")}
+                        className="text-green-500"
+                      >
+                        <Share2 /> {/* WhatsApp */}
+                      </button>
+                      <button
+                        onClick={() => handleShare(job, "linkedin")}
+                        className="text-blue-700"
+                      >
+                        <Linkedin /> {/* LinkedIn */}
+                      </button>
+                    </div>
                   </div>
                 </div>
 

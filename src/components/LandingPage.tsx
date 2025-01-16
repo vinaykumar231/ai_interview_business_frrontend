@@ -41,13 +41,13 @@ export default function LandingPage() {
                 to="/Student_signup"
                 className="bg-white text-blue-600 px-8 py-3 rounded-md font-medium hover:bg-blue-50 transition-colors"
               >
-                For Students
+                Employees
               </Link>
               <Link
                 to="/busines_register"
                 className="bg-blue-500 text-white px-8 py-3 rounded-md font-medium hover:bg-blue-400 transition-colors"
               >
-                For Businesses
+                Businesses
               </Link>
             </div>
           </div>
