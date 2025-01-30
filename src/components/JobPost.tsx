@@ -152,6 +152,7 @@ const JobPost = () => {
             },
           }
         );
+        
       } else {
         // Create new job
         response = await axios.post(`api/job_postings/`, currentJob, {
@@ -160,6 +161,8 @@ const JobPost = () => {
             Authorization: `Bearer ${token}`,
           },
         });
+
+        console.log(response)
       }
 
       Swal.fire({

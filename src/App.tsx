@@ -34,6 +34,7 @@ import ResumeBuilder from "./student_pages/ResumeBuilder";
 import DynamicResumeBuilder from "./student_pages/DynamicResumeBuilder";
 import JobPost from "./components/JobPost";
 import JobDetails from "./components/JobDetails";
+import Apply from "./components/Apply";
 
 function App() {
   const { user } = useLogin();
@@ -55,8 +56,8 @@ function App() {
     // Check if the current path matches any noSidebarPages
     // For job_details, we check if the path starts with "/job_details"
     const shouldHideSidebar = noSidebarPages.some(page => {
-      if (page === "/job_details") {
-        return location.pathname.startsWith("/job_details");
+      if (page === "/job_details" ||  page === "/apply") {
+        return location.pathname.startsWith("/job_details") || location.pathname.startsWith("/apply");
       }
       return location.pathname === page;
     });
@@ -85,6 +86,7 @@ function App() {
             
             {/* Job details */}
             <Route path="/job_details/:id" element={<JobDetails />}/>
+            <Route path="/apply/:id" element={<Apply />}/>
 
             {/* Protected Routes wrapped with ProtectedRoute */}
             <Route element={<ProtectedRoute />}>

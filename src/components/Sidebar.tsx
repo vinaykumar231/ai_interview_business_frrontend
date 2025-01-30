@@ -156,7 +156,7 @@ const Sidebar: React.FC = () => {
                 Profile
               </Link>
             </li>
-            <li className="flex items-center space-x-2 ml-4">
+            {/* <li className="flex items-center space-x-2 ml-4">
               <DollarSign className="w-6 h-6" />
               <Link
                 to="/resume_builder"
@@ -173,7 +173,7 @@ const Sidebar: React.FC = () => {
               >
                 My Grades
               </Link>
-            </li>
+            </li> */}
           </>
         );
       default:

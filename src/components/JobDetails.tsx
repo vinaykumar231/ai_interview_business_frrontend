@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import axios from "../helper/axios";
-import { Eye, AlertCircle } from "lucide-react";
 import { useNavigate, useParams } from "react-router-dom";
 
 interface Job {
@@ -24,6 +23,7 @@ const JobDetails = () => {
   const { id } = useParams();
   const [job, setJob] = useState<Job | null>(null); // Initialize with null
   const token = localStorage.getItem("token") || "";
+  const navigate = useNavigate();
 
   useEffect(() => {
     const getJobData = async () => {
@@ -33,41 +33,27 @@ const JobDetails = () => {
             Authorization: `Bearer ${token}`,
           },
         });
-        console.log(response.data); // Ensure response.data matches your expected structure
         setJob(response.data);
       } catch (error) {
-        console.log(error);
+        console.error("Error fetching job details:", error);
       }
     };
 
     getJobData();
-  }, [id]);
+  }, [id, token]);
 
-  const navigate = useNavigate();
+  const handleApply = () => {
+    if (!token) {
+      // If no token, save the current page and redirect to login/signup
+      sessionStorage.setItem("redirectAfterLogin", `/ai_hr/job_details/${id}`);
+      navigate("/Student_signup");
+      return;
+    }
 
-  const handleLog = () => {
-    navigate("/Student_signup");
+    // Skip explicit validation and directly navigate to the apply page
+    navigate(`/apply/${id}`);
   };
 
-  // const getJobData = async (id:any) => {
-  //   try {
-  //     const response = await axios.get(`api/job_postings/${id}`, {
-  //       headers: {
-  //         Authorization: `Bearer ${token}`,
-  //       },
-  //     });
-  //     console.log(response.data); // Ensure response.data matches your expected structure
-  //     setJob(response.data);
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // };
-
-  // useEffect(() => {
-  //   getJobData(id);
-  // }, []);
-
-  // Show a loading state or a fallback if the job is null
   if (!job) {
     return <div>Loading job details...</div>;
   }
@@ -91,7 +77,6 @@ const JobDetails = () => {
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
               <div className="flex items-center gap-2 text-gray-600">
-                {/* <Eye size={16} /> */}
                 <span>
                   Deadline:{" "}
                   {new Date(job.application_deadline).toLocaleDateString()}
@@ -117,7 +102,7 @@ const JobDetails = () => {
           <div>
             <button
               className="bg-blue-600 text-white py-3 px-5 rounded-md hover:bg-blue-500"
-              onClick={handleLog}
+              onClick={handleApply}
             >
               Apply Now
             </button>
