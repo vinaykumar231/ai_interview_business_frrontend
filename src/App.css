@@ -1,0 +1,13 @@
+.swal2-icon {
+    font-size: 12px;
+}
+
+.no-arrow::-webkit-inner-spin-button,
+.no-arrow::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.no-arrow {
+  -moz-appearance: textfield;
+}

@@ -9,7 +9,7 @@ export default function Header() {
           <div className="flex items-center">
             <Link to="/" className="flex items-center">
               <img
-                src={`${process.env.PUBLIC_URL}/logo_maiteri_ai_rec.jpg`}
+                src={`${process.env.PUBLIC_URL}/assets/images/logo_maiteri_ai_rec.jpg`}
                 alt="Logo"
                 className="h-16 w-16 rounded-full"
               />

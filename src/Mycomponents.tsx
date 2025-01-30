@@ -25,7 +25,7 @@ const ComponentTwo: React.FC = () => {
           {/* Image */}
           <img
             loading="lazy"
-            src="/robo.png"
+            src={`${process.env.PUBLIC_URL}/assets/images/robo.png`}
             className="object-contain shrink-0 max-w-full aspect-[0.49] w-[338px] relative z-10"
             alt="Tech illustration"
           />

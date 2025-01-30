@@ -41,12 +41,16 @@ const AuthPage = () => {
     const token = localStorage.getItem("token");
 
     try {
-      const response = await axios.post("/api/AI_Interviewers/login/", payload, {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      const response = await axios.post(
+        "/api/AI_Interviewers/login/",
+        payload,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
 
       if (response?.data?.token) {
         Swal.fire({
@@ -80,6 +84,10 @@ const AuthPage = () => {
             navigate("/");
             break;
         }
+        setPayload({
+          email: "",
+          user_password: "",
+        });
       } else {
         Swal.fire({
           title: "Login failed!",
@@ -95,7 +103,6 @@ const AuthPage = () => {
       });
     }
   };
-
 
   const handleSignup = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -115,6 +122,13 @@ const AuthPage = () => {
         icon: "success",
       });
       setIsLogin(true); // Switch to login after successful signup
+      setRegister({
+        user_name: "",
+        user_email: "",
+        user_password: "",
+        phone_no: "",
+        user_type: "students", // Default user type
+      });
     } catch (error: any) {
       console.error("Signup error:", error);
       const errorMessage =
@@ -135,21 +149,21 @@ const AuthPage = () => {
       <div className="bg-white shadow-2xl rounded-2xl flex overflow-hidden w-[80%] max-w-5xl transform hover:scale-[1.02] transition-transform duration-300">
         {/* Image Section */}
 
-
         <div
-          className={`w-1/2 ${isLogin ? "order-1" : "order-2"
-            } bg-gradient-to-br from-indigo-600 to-blue-500 p-12 flex flex-col items-center justify-center relative overflow-hidden`}
+          className={`w-1/2 ${
+            isLogin ? "order-1" : "order-2"
+          } bg-gradient-to-br from-indigo-600 to-blue-500 p-12 flex flex-col items-center justify-center relative overflow-hidden`}
           style={{
-            backgroundImage: `url(${isLogin
-                ? `${process.env.PUBLIC_URL}/login.png`
-                : `${process.env.PUBLIC_URL}/login.png`
-              })`,
+            backgroundImage: `url(${
+              isLogin
+                ? `${process.env.PUBLIC_URL}/assets/images/login.png`
+                : `${process.env.PUBLIC_URL}/assets/images/login.png`
+            })`,
             backgroundSize: "cover",
             backgroundPosition: "center",
           }}
         >
           <div className=""></div>
-
         </div>
         {/* Form Section */}
         <div className="w-1/2 p-12 bg-white">
@@ -175,7 +189,9 @@ const AuthPage = () => {
                     <input
                       type="text"
                       placeholder="Enter your full name"
-                      onChange={(e) => handleChange("user_name", e.target.value)}
+                      onChange={(e) =>
+                        handleChange("user_name", e.target.value)
+                      }
                       required
                       className="block w-full pl-10 pr-3 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-600"
                     />
@@ -236,9 +252,7 @@ const AuthPage = () => {
             </form>
 
             <p className="mt-4 text-center text-gray-600">
-              {isLogin
-                ? "Don't have an account?"
-                : "Already have an account?"}{" "}
+              {isLogin ? "Don't have an account?" : "Already have an account?"}{" "}
               <button
                 onClick={() => setIsLogin(!isLogin)}
                 className="text-indigo-600 hover:underline"

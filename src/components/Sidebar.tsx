@@ -1,25 +1,33 @@
-import React, { useState, useEffect, MouseEvent } from 'react';
-import { Users, User, ClipboardList, DollarSign, LogOut, BookOpen, CheckSquare } from 'lucide-react';
-import { useLogin } from '../auth/LoginContext';
-import { FaFile } from 'react-icons/fa';
-import { Link } from 'react-router-dom';
-import { useSidebar } from '../auth/SidebarContext ';
-
+import React, { useState, useEffect, MouseEvent } from "react";
+import {
+  Users,
+  User,
+  ClipboardList,
+  DollarSign,
+  LogOut,
+  BookOpen,
+  CheckSquare,
+  Mails,
+} from "lucide-react";
+import { useLogin } from "../auth/LoginContext";
+import { FaFile } from "react-icons/fa";
+import { Link } from "react-router-dom";
+import { useSidebar } from "../auth/SidebarContext ";
 
 interface User {
   id: number;
   name: string;
   email: string;
-  user_type: string; 
+  user_type: string;
 }
 
 const Sidebar: React.FC = () => {
   const [user, setUser] = useState<User | null>(null);
-  const { logout } = useLogin(); 
+  const { logout } = useLogin();
   const { isSidebarOpen } = useSidebar();
 
   useEffect(() => {
-    const userData = localStorage.getItem('user');
+    const userData = localStorage.getItem("user");
     if (userData) {
       setUser(JSON.parse(userData));
     }
@@ -27,101 +35,145 @@ const Sidebar: React.FC = () => {
 
   const handleLogout = (e: MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault();
-    logout(); 
+    logout();
   };
 
-  
   const renderSidebarItems = () => {
-    if (!user) return null; 
+    if (!user) return null;
 
     switch (user.user_type) {
-      case 'HR':
+      case "HR":
         return (
           <>
             <li className="flex items-center space-x-2 ml-4">
               <User className="w-6 h-6" />
-              <Link to="/profile" className="block py-2.5 px-4 text-sm hover:bg-blue-700">
+              <Link
+                to="/profile"
+                className="block py-2.5 px-4 text-sm hover:bg-blue-700"
+              >
                 Profile
               </Link>
             </li>
             <li className="flex items-center space-x-2 ml-4">
+              <Mails className="w-6 h-6" />
+              <Link
+                to="/job_posting"
+                className="block py-2.5 px-4 text-sm hover:bg-blue-700"
+              >
+                Job Posting
+              </Link>
+            </li>
+            <li className="flex items-center space-x-2 ml-4">
               <ClipboardList className="w-6 h-6" />
-              <Link to="/resume_upload" className="block py-2.5 px-4 text-sm hover:bg-blue-700">
+              <Link
+                to="/resume_upload"
+                className="block py-2.5 px-4 text-sm hover:bg-blue-700"
+              >
                 Candidate Screening
               </Link>
             </li>
             <li className="flex items-center space-x-2 ml-4">
               <FaFile className="w-6 h-6" />
-              <Link to="/hr_Total_ResumeUploaded" className="block py-2.5 px-4 text-sm hover:bg-blue-700">
+              <Link
+                to="/hr_Total_ResumeUploaded"
+                className="block py-2.5 px-4 text-sm hover:bg-blue-700"
+              >
                 Resume Analysis Report
               </Link>
             </li>
             <li className="flex items-center space-x-2 ml-4">
               <Users className="w-6 h-6" />
-              <Link to="/selected_candidate" className="block py-2.5 px-4 text-sm hover:bg-blue-700">
+              <Link
+                to="/selected_candidate"
+                className="block py-2.5 px-4 text-sm hover:bg-blue-700"
+              >
                 Selected Candidate
               </Link>
             </li>
             <li className="flex items-center space-x-2 ml-4">
               <CheckSquare className="w-6 h-6" />
-              <Link to="/result" className="block py-2.5 px-4 text-sm hover:bg-blue-700">
-              Interview Report
+              <Link
+                to="/result"
+                className="block py-2.5 px-4 text-sm hover:bg-blue-700"
+              >
+                Interview Report
               </Link>
             </li>
           </>
         );
 
-        case 'admin':
+      case "admin":
         return (
           <>
             <li className="flex items-center space-x-2 ml-4">
               <ClipboardList className="w-6 h-6" />
-              <Link to="/admin_business_msg" className="block py-2.5 px-4 text-sm hover:bg-blue-700">
-              Business Message
+              <Link
+                to="/admin_business_msg"
+                className="block py-2.5 px-4 text-sm hover:bg-blue-700"
+              >
+                Business Message
               </Link>
             </li>
             <li className="flex items-center space-x-2 ml-4">
               <Users className="w-6 h-6" />
-              <Link to="/all_users" className="block py-2.5 px-4 text-sm hover:bg-blue-700">
-              All Users
+              <Link
+                to="/all_users"
+                className="block py-2.5 px-4 text-sm hover:bg-blue-700"
+              >
+                All Users
               </Link>
             </li>
             <li className="flex items-center space-x-2 ml-4">
               <BookOpen className="w-6 h-6" />
-              <Link to="/hr_activity" className="block py-2.5 px-4 text-sm hover:bg-blue-700">
-              HR Activity
+              <Link
+                to="/hr_activity"
+                className="block py-2.5 px-4 text-sm hover:bg-blue-700"
+              >
+                HR Activity
               </Link>
             </li>
             <li className="flex items-center space-x-2 ml-4">
               <CheckSquare className="w-6 h-6" />
-              <Link to="/All_hr_candidate_report" className="block py-2.5 px-4 text-sm hover:bg-blue-700">
-              All HR Candidate 
+              <Link
+                to="/All_hr_candidate_report"
+                className="block py-2.5 px-4 text-sm hover:bg-blue-700"
+              >
+                All HR Candidate
               </Link>
             </li>
           </>
         );
 
-      case 'students':
+      case "students":
         return (
           <>
             <li className="flex items-center space-x-2 ml-4">
               <User className="w-6 h-6" />
-              <Link to="/profile" className="block py-2.5 px-4 text-sm hover:bg-blue-700">
+              <Link
+                to="/profile"
+                className="block py-2.5 px-4 text-sm hover:bg-blue-700"
+              >
                 Profile
               </Link>
             </li>
-            <li className="flex items-center space-x-2 ml-4">
+            {/* <li className="flex items-center space-x-2 ml-4">
               <DollarSign className="w-6 h-6" />
-              <Link to="/resume_builder" className="block py-2.5 px-4 text-sm hover:bg-blue-700">
-              Resume builder
+              <Link
+                to="/resume_builder"
+                className="block py-2.5 px-4 text-sm hover:bg-blue-700"
+              >
+                Resume builder
               </Link>
             </li>
             <li className="flex items-center space-x-2 ml-4">
               <BookOpen className="w-6 h-6" />
-              <Link to="/grades" className="block py-2.5 px-4 text-sm hover:bg-blue-700">
+              <Link
+                to="/grades"
+                className="block py-2.5 px-4 text-sm hover:bg-blue-700"
+              >
                 My Grades
               </Link>
-            </li>
+            </li> */}
           </>
         );
       default:
@@ -141,7 +193,11 @@ const Sidebar: React.FC = () => {
           </nav>
           <div className="flex items-center space-x-2 ml-4 mb-6">
             <LogOut className="w-6 h-6" />
-            <Link to="/" className="block py-2.5 px-4 text-sm hover:bg-blue-700" onClick={handleLogout}>
+            <Link
+              to="/"
+              className="block py-2.5 px-4 text-sm hover:bg-blue-700"
+              onClick={handleLogout}
+            >
               Logout
             </Link>
           </div>

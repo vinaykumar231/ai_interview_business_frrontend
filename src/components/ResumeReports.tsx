@@ -72,49 +72,51 @@ const ResumeReports: React.FC = () => {
                                 </tr>
                             </thead>
                             <tbody>
-                                {resumeReports.map((report, index) => (
-                                    <tr key={index} className="hover:bg-gray-700">
-                                        <td className="py-2 px-4 flex items-center">
-                                            <FaUser className="text-white text-lg mr-2" />
-                                            {report.candidate_name || 'Unknown Candidate'}
-                                        </td>
-                                        <td className="py-2 px-4 text-gray-300">{formatDate(report.created_on)}</td>
-                                        <td className="py-2 px-4">
-                                            <a
-                                                href={report.Interview_report}
-                                                target="_blank"
-                                                rel="noopener noreferrer"
-                                                className="text-blue-400 hover:text-blue-500 flex items-center"
-                                            >
-                                                <FaFilePdf className="mr-2 text-red-500" /> View
-                                            </a>
-                                        </td>
-                                        <td className="py-2 px-4">
-                                            <a
-                                                href={report.resume}
-                                                target="_blank"
-                                                rel="noopener noreferrer"
-                                                className="text-blue-400 hover:text-blue-500 flex items-center"
-                                            >
-                                                <FaFilePdf className="mr-2 text-green-500" /> View
-                                            </a>
-                                        </td>
-                                        <td className="py-2 px-4">
-                                            {report.video_url ? (
+                                {resumeReports.map((report, index) => {
+                                    return (
+                                        <tr key={index} className="hover:bg-gray-700">
+                                            <td className="py-2 px-4 flex items-center">
+                                                <FaUser className="text-white text-lg mr-2" />
+                                                {report.candidate_name || 'Unknown Candidate'}
+                                            </td>
+                                            <td className="py-2 px-4 text-gray-300">{formatDate(report.created_on)}</td>
+                                            <td className="py-2 px-4">
                                                 <a
-                                                    href={report.video_url}
+                                                    href={report.Interview_report}
                                                     target="_blank"
                                                     rel="noopener noreferrer"
                                                     className="text-blue-400 hover:text-blue-500 flex items-center"
                                                 >
-                                                    <FaVideo className="mr-2 text-yellow-500" /> View
+                                                    <FaFilePdf className="mr-2 text-red-500" /> View
                                                 </a>
-                                            ) : (
-                                                <span className="text-gray-500">No Video</span>
-                                            )}
-                                        </td>
-                                    </tr>
-                                ))}
+                                            </td>
+                                            <td className="py-2 px-4">
+                                                <a
+                                                    href={report.resume}
+                                                    target="_blank"
+                                                    rel="noopener noreferrer"
+                                                    className="text-blue-400 hover:text-blue-500 flex items-center"
+                                                >
+                                                    <FaFilePdf className="mr-2 text-green-500" /> View
+                                                </a>
+                                            </td>
+                                            <td className="py-2 px-4">
+                                                {report.video_url ? (
+                                                    <a
+                                                        href={report.video_url}
+                                                        target="_blank"
+                                                        rel="noopener noreferrer"
+                                                        className="text-blue-400 hover:text-blue-500 flex items-center"
+                                                    >
+                                                        <FaVideo className="mr-2 text-yellow-500" /> View
+                                                    </a>
+                                                ) : (
+                                                    <span className="text-gray-500">No Video</span>
+                                                )}
+                                            </td>
+                                        </tr>
+                                    )
+                                })}
                             </tbody>
                         </table>
                     </div>

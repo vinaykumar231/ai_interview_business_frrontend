@@ -57,7 +57,7 @@ const CandidateRow: React.FC<CandidateRowProps> = ({
     };
 
     return (
-        <div className="flex items-center px-3 py-2 bg-gray-800 border-b border-gray-700 text-white">
+        <div className="flex items-center px-3 py-2 border  ">
             <div className="w-1/6">{candidate_name}</div>
             <div className="w-1/6">{candidate_resume_selection_status}</div>
             <div className="w-1/6">{candidate_email}</div>
@@ -119,10 +119,10 @@ const SelectedCandidates: React.FC = () => {
     };
 
     return (
-        <main className="flex flex-col px-6 pt-8 pb-40 text-white bg-black max-md:px-5 max-md:pb-24">
+        <main className="flex flex-col px-6 pt-8 pb-40  max-md:px-5 max-md:pb-24">
             <h1 className="self-center text-3xl font-semibold">Selected Candidates</h1>
-            <section className="flex flex-col mt-6 w-full bg-black rounded-xl shadow-lg">
-                <header className="flex justify-between items-center py-2 text-xl text-white bg-gray-900 border-b border-gray-700">
+            <section className="flex flex-col mt-6 w-full  rounded-xl shadow-lg border ">
+                <header className="flex justify-between items-center px-3 py-2 text-xl ">
                     <div className="w-1/6">Name</div>
                     <div className="w-1/6">Status</div>
                     <div className="w-1/6">Email</div>
